@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.mts.hackathon_api.DTO.UserDTO;
@@ -35,7 +35,7 @@ public class UserController {
         );
     }
 
-    @PostMapping("/enter")
+    @PostMapping("/login")
     public UserModel login(@RequestBody UserDTO request) {
         return userService.login(
             request.getLogin(),
@@ -49,10 +49,22 @@ public class UserController {
     }
 
     
-     @DeleteMapping("/delete")
-    public ResponseEntity<?> deleteUser(@RequestParam String login) {
+    @DeleteMapping("/deleteByLogin/{login}")
+    public ResponseEntity<?> deleteByLogin(@PathVariable String login) {
 
-        boolean deleted = userService.deleteUserByLogin(login);
+        boolean deleted = userService.deleteByLogin(login);
+
+        if (!deleted) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok().build();
+    }
+    
+    @DeleteMapping("/deleteById/{id}")
+    public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
+
+        boolean deleted = userService.deleteById(id);
 
         if (!deleted) {
             return ResponseEntity.notFound().build();

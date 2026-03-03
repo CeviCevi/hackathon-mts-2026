@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import by.mts.hackathon_api.Models.UserModel;
 import by.mts.hackathon_api.Repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -29,16 +30,23 @@ public class UserService {
             .orElseThrow(() -> new RuntimeException("Invalid login or password"));
     }
     
-    public boolean deleteUserByLogin(String login) {
+   
+ @Transactional  // <-- Добавьте эту аннотацию
+    public boolean deleteByLogin(String login) {
         if (!userRepository.existsByLogin(login)) {
             return false;
         }
-
-        
         userRepository.deleteByLogin(login);
         return true;
     }
 
-
+    @Transactional  // <-- И сюда тоже
+    public boolean deleteById(Long id) {
+        if (!userRepository.existsById(id)) {
+            return false;
+        }
+        userRepository.deleteById(id);
+        return true;
+    }
 
 }

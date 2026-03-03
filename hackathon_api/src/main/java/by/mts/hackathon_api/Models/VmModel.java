@@ -16,18 +16,24 @@ public class VmModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String name;  
+
+    @Column(unique = false, nullable = true)
+    private Long ssh_id;
     
     @Column(unique = false, nullable = false)
-    private String ram;  
+    private double  ram;  
 
     @Column(unique = false, nullable = false)
-    private String rom;  
+    private double  rom;  
 
     @Column(unique = false, nullable = false)
-    private String frequency;
+    private double  frequency;
 
     @Column(unique = false, nullable = false)
-    private String os;
+    private String  os;
 
      @Column(unique = false, nullable = false)
     private int status;

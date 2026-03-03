@@ -1,4 +1,11 @@
 spring:
+  web:
+    cors:
+      allowed-origins: "http://localhost:5000,http://127.0.0.1:5000"
+      allowed-methods: "GET,POST,PUT,DELETE,OPTIONS"
+      allowed-headers: "*"
+      allow-credentials: true
+      max-age: 3600
   datasource:
     url: jdbc:postgresql://localhost:5432/database
     username: postgres

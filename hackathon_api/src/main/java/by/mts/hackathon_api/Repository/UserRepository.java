@@ -8,10 +8,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import by.mts.hackathon_api.Models.UserModel;
 
 public interface UserRepository extends JpaRepository<UserModel, Long> {
-List<UserModel> findAllByOrderById();      
+
+    List<UserModel> findAllByOrderById();      
     Optional<UserModel> findByLogin(String login);
 
     boolean existsByLogin(String login);
+    boolean existsById(Long id);
     void deleteByLogin(String login);
+    void deleteById(Long id);
 
 }
