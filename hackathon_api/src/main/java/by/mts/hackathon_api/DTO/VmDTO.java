@@ -5,9 +5,11 @@ import lombok.Data;
 @Data
 public class VmDTO {
     
+    private int id;
+
     private String name;  
 
-    private Long ssh_id;
+    private Long idSsh;
 
     private double ram;
 
@@ -18,5 +20,9 @@ public class VmDTO {
     private String os;
 
     private int status;
+
+    private Long idUser;
+
+    private String role;
 
 }

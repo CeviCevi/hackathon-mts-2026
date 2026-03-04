@@ -44,7 +44,7 @@ public class UserController {
     }
 
     @GetMapping("/read")
-    public List<UserModel> findAllByOrderById(@RequestBody UserDTO request) {
+    public List<UserModel> findAllByOrderById()  {
         return userRepository.findAllByOrderById();
     }
 

@@ -17,10 +17,10 @@ public class CharacteristicVmModel {
     private Long id;
 
     @Column(nullable = false)
-    private Long id_user;
+    private Long idUser;
 
     @Column(nullable = false)
-    private Long id_vm;
+    private Long idVm;
 
     @Column(nullable = false)
     private String role;

@@ -21,7 +21,7 @@ public class VmModel {
     private String name;  
 
     @Column(unique = false, nullable = true)
-    private Long ssh_id;
+    private Long idSsh;
     
     @Column(unique = false, nullable = false)
     private double  ram;  

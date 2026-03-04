@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.mts.hackathon_api.DTO.VmDTO;
@@ -14,6 +15,8 @@ import by.mts.hackathon_api.Repository.VmRepository;
 import by.mts.hackathon_api.Service.VmService;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @Data
 @RestController
@@ -31,7 +34,7 @@ public class VmComtroller {
         return vmService.register(request);
     }
     
-      @DeleteMapping("/deleteByLogin/{name}")
+    @DeleteMapping("/deleteByName/{name}")
     public ResponseEntity<?> deleteByName(@PathVariable String name) {
 
         boolean deleted = vmService.deleteByName(name);
@@ -42,6 +45,13 @@ public class VmComtroller {
 
         return ResponseEntity.ok().build();
     }
+
+     @PutMapping("/update/{id}")  // ← добавлен PathVariable для id
+    public ResponseEntity<VmModel> update(@PathVariable Long id, @RequestBody VmDTO request) {
+        VmModel updated = vmService.update(request);
+        return ResponseEntity.ok(updated);
+    }
+
     
     @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<?> deleteUserById(@PathVariable Long id) {
