@@ -22,7 +22,7 @@ class VmItem extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
-        margin: const .only(bottom: 12),
+        margin: const .fromLTRB(0, 0, 15, 12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
           color: const Color.fromARGB(

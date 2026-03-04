@@ -24,7 +24,7 @@ class _NavigationLeftBarState extends State<NavigationLeftBar> {
 
   final List<String> _titles = [
     "Мои машины",
-    "Арендовать машину",
+    "Создать машину",
     "История",
     "Настройки",
   ];
