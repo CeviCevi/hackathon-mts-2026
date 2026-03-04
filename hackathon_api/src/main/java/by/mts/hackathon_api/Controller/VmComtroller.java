@@ -46,11 +46,11 @@ public class VmComtroller {
         return ResponseEntity.ok().build();
     }
 
-     @PutMapping("/update/{id}")  // ← добавлен PathVariable для id
-    public ResponseEntity<VmModel> update(@PathVariable Long id, @RequestBody VmDTO request) {
-        VmModel updated = vmService.update(request);
-        return ResponseEntity.ok(updated);
-    }
+   @PutMapping("/update")
+public ResponseEntity<VmModel> update(@RequestBody VmDTO request) {
+    VmModel updated = vmService.update(request);
+    return ResponseEntity.ok(updated);
+}
 
     
     @DeleteMapping("/deleteById/{id}")

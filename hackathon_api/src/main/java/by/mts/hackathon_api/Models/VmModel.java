@@ -35,8 +35,8 @@ public class VmModel {
     @Column(unique = false, nullable = false)
     private String  os;
 
-     @Column(unique = false, nullable = false)
-    private int status;
+     @Column(unique = false)
+    private Integer status;
 
 
 }

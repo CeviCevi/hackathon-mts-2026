@@ -66,32 +66,58 @@ public class VmService {
         return true;
     }
 
-      @Transactional
-        public VmModel updateStatus(VmDTO request) {
-        // Находим VM по ID
-        VmModel vm = vmRepository.findById(request.getId)
-            .orElseThrow(() -> new RuntimeException("VM not found with id: " + vmId));
-        
-        // Обновляем статус
-        vm.setStatus(newStatus);
-        VmModel updatedVm = vmRepository.save(vm);
-        
-        // Выполняем GET-запрос на другой сервер
-        try {
-            //переписать путь получения ssh
-            String fullUrl = externalServerUrl + "?vmId=" + vmId;
-            ResponseEntity<String> response = restTemplate.getForEntity(fullUrl, String.class);
-            
-           
-            System.out.println("External server response: " + response.getStatusCode());
-            
-        } catch (Exception e) {
-            
-            System.err.println("Failed to notify external server: " + e.getMessage());
-           
-        }
-        
-        return updatedVm;
+    @Transactional
+public VmModel update(VmDTO request) {
+
+    if (request.getId() == null) {
+        throw new RuntimeException("Id must not be null");
     }
 
+    VmModel vm = vmRepository.findById(request.getId())
+            .orElseThrow(() -> new RuntimeException("VM not found with id: " + request.getId()));
+
+    boolean statusChangedTo200 = false;
+
+    if (request.getName() != null) {
+        vm.setName(request.getName());
+    }
+
+    if (request.getOs() != null) {
+        vm.setOs(request.getOs());
+    }
+
+    if (request.getRam() != null) {
+        vm.setRam(request.getRam());
+    }
+
+    if (request.getRom() != null) {
+        vm.setRom(request.getRom());
+    }
+
+    if (request.getFrequency() != null) {
+        vm.setFrequency(request.getFrequency());
+    }
+
+   if (request.getStatus() != null) {
+
+    if (vm.getStatus() != 200 && request.getStatus() == 200) {
+        statusChangedTo200 = true;
+    }
+
+    vm.setStatus(request.getStatus());
+   }
+
+    VmModel updatedVm = vmRepository.save(vm);
+
+    if (statusChangedTo200) {
+        try {
+            String fullUrl = externalServerUrl + "?vmId=" + vm.getId();
+            restTemplate.getForEntity(fullUrl, String.class);
+        } catch (Exception e) {
+            System.err.println("Failed to notify external server: " + e.getMessage());
+        }
+    }
+
+    return updatedVm;
+}
 }
