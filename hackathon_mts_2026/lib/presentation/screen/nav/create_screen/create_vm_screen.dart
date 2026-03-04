@@ -274,7 +274,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                         value: _selectedRom,
                         options: _romOptions,
                         icon: Icons.storage,
-                        color: Colors.purple,
+                        color: Colors.green,
                         unit: "MB",
                         onChanged: (v) {
                           setState(() {
@@ -293,7 +293,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                         value: _selectedCors,
                         options: _corsOptions,
                         icon: Icons.speed,
-                        color: Colors.orange,
+                        color: Color.fromARGB(255, 255, 18, 1),
                         unit: "ядер",
                         onChanged: (v) {
                           setState(() {
@@ -357,13 +357,6 @@ class _CreateVmScreenState extends State<CreateVmScreen>
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              _buildActionButton(
-                label: "ТЕСТ",
-                icon: Icons.play_arrow,
-                isPrimary: false,
-                onPressed: () {},
-              ),
-              const SizedBox(width: 8),
               _buildActionButton(
                 label: "СОЗДАТЬ",
                 icon: Icons.add,
