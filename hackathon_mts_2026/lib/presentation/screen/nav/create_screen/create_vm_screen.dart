@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/animated_card.dart';
+import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/input_label.dart';
+import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/resource_slider.dart';
+import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/selection_title.dart';
 import 'package:hackathon_mts_2026/presentation/widget/app/text_field/cosmic_text_field.dart';
 
 class CreateVmScreen extends StatefulWidget {
@@ -53,7 +57,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
     },
     {
       'name': 'МЕГА',
-      'ram': '16384',
+      'ram': '10000',
       'rom': '81920',
       'cors': '8',
       'icon': Icons.lens,
@@ -133,7 +137,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Секция с пресетами
-          _buildSectionTitle("БЫСТРЫЙ СТАРТ"),
+          SelectionTitle(title: "БЫСТРЫЙ СТАРТ"),
           const SizedBox(height: 12),
           SizedBox(
             height: 90,
@@ -160,17 +164,20 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildSectionTitle("ОСНОВНЫЕ НАСТРОЙКИ"),
+                      SelectionTitle(title: "ОСНОВНЫЕ НАСТРОЙКИ"),
                       const SizedBox(height: 16),
 
                       // Имя машины с эффектом и кнопкой генерации
-                      _buildAnimatedCard(
+                      AnimatedCard(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
                               children: [
-                                _buildInputLabel("ИМЯ МАШИНЫ", Icons.computer),
+                                InputLabel(
+                                  label: "ИМЯ МАШИНЫ",
+                                  icon: Icons.computer,
+                                ),
                                 const Spacer(),
                                 IconButton(
                                   icon: Icon(
@@ -197,13 +204,13 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                       const SizedBox(height: 16),
 
                       // Выбор ОС в виде карточек
-                      _buildAnimatedCard(
+                      AnimatedCard(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildInputLabel(
-                              "ОПЕРАЦИОННАЯ СИСТЕМА",
-                              Icons.construction_outlined,
+                            InputLabel(
+                              label: "ОПЕРАЦИОННАЯ СИСТЕМА",
+                              icon: Icons.construction_outlined,
                             ),
                             const SizedBox(height: 12),
                             Wrap(
@@ -220,11 +227,11 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                       const SizedBox(height: 16),
 
                       // Пароль
-                      _buildAnimatedCard(
+                      AnimatedCard(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildInputLabel("ПАРОЛЬ", Icons.lock),
+                            InputLabel(label: "ПАРОЛЬ", icon: Icons.lock),
                             const SizedBox(height: 8),
                             CosmicTextField(
                               controller: _passwordController,
@@ -246,11 +253,11 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      _buildSectionTitle("РЕСУРСЫ"),
-                      const SizedBox(height: 16),
+                      SelectionTitle(title: "РЕСУРСЫ"),
+                      const SizedBox(height: 20),
 
                       // RAM
-                      _buildResourceSlider(
+                      ResourceSlider(
                         label: "RAM",
                         value: _selectedRam,
                         options: _ramOptions,
@@ -266,10 +273,10 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                         },
                       ),
 
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 21),
 
                       // ROM
-                      _buildResourceSlider(
+                      ResourceSlider(
                         label: "ROM",
                         value: _selectedRom,
                         options: _romOptions,
@@ -285,10 +292,10 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                         },
                       ),
 
-                      const SizedBox(height: 16),
+                      const SizedBox(height: 21),
 
                       // CPU
-                      _buildResourceSlider(
+                      ResourceSlider(
                         label: "CPU",
                         value: _selectedCors,
                         options: _corsOptions,
@@ -303,47 +310,6 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                           _generateDefaultName();
                         },
                       ),
-
-                      const SizedBox(height: 16),
-
-                      // Итого
-                      _buildAnimatedCard(
-                        child: Container(
-                          padding: const EdgeInsets.all(12),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            gradient: LinearGradient(
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                              colors: [
-                                Colors.deepOrange.withAlpha(
-                                  (255 * 0.15).toInt(),
-                                ),
-                                Colors.transparent,
-                              ],
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                "ИТОГО:",
-                                style: TextStyle(
-                                  color: Colors.deepOrange,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                              Text(
-                                "$_selectedRam MB / $_selectedRom MB / $_selectedCors ядер",
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),
@@ -354,58 +320,47 @@ class _CreateVmScreenState extends State<CreateVmScreen>
           const SizedBox(height: 24),
 
           // Кнопки действий
-          Row(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              _buildActionButton(
-                label: "СОЗДАТЬ",
-                icon: Icons.add,
-                isPrimary: true,
-                onPressed: _createVm,
+          Align(
+            alignment: .centerRight,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width / 6,
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  onTap: _createVm,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  splashColor: Colors.deepOrange.withAlpha(50),
+                  borderRadius: .circular(16),
+                  child: Container(
+                    padding: const .symmetric(horizontal: 20, vertical: 10),
+                    decoration: BoxDecoration(
+                      //color: Colors.transparent,
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.deepOrange.withAlpha(50),
+                          Colors.transparent,
+                        ],
+                      ),
+                      borderRadius: .circular(16),
+                      border: Border.all(color: Colors.deepOrange, width: 1.5),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Продолжить",
+                        style: TextStyle(
+                          color: Colors.deepOrange,
+                          fontWeight: .w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
               ),
-            ],
+            ),
           ),
         ],
       ),
-    );
-  }
-
-  // Новые компоненты
-  Widget _buildSectionTitle(String title) {
-    return Row(
-      children: [
-        Container(
-          width: 20,
-          height: 20,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(
-              color: Colors.deepOrange.withAlpha((255 * 0.5).toInt()),
-              width: 2,
-            ),
-          ),
-          child: Center(
-            child: Container(
-              width: 8,
-              height: 8,
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.deepOrange,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(width: 8),
-        Text(
-          title,
-          style: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w600,
-            color: Colors.deepOrange.shade200,
-            letterSpacing: 1,
-          ),
-        ),
-      ],
     );
   }
 
@@ -496,38 +451,6 @@ class _CreateVmScreenState extends State<CreateVmScreen>
     );
   }
 
-  Widget _buildAnimatedCard({required Widget child}) {
-    return TweenAnimationBuilder<double>(
-      duration: const Duration(milliseconds: 300),
-      tween: Tween(begin: 0.0, end: 1.0),
-      curve: Curves.easeOut,
-      builder: (context, value, child) {
-        return Transform.translate(
-          offset: Offset(0, 10 * (1 - value)),
-          child: Opacity(opacity: value, child: child),
-        );
-      },
-      child: child,
-    );
-  }
-
-  Widget _buildInputLabel(String label, IconData icon) {
-    return Row(
-      children: [
-        Icon(icon, color: Colors.deepOrange.shade300, size: 16),
-        const SizedBox(width: 4),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
-            color: Colors.deepOrange.shade200,
-          ),
-        ),
-      ],
-    );
-  }
-
   Widget _buildOsChip(Map<String, dynamic> os) {
     final isSelected = _selectedOs == os['name'];
     return GestureDetector(
@@ -579,138 +502,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
     );
   }
 
-  Widget _buildResourceSlider({
-    required String label,
-    required String value,
-    required List<String> options,
-    required IconData icon,
-    required Color color,
-    required String unit,
-    required void Function(String) onChanged,
-  }) {
-    final currentIndex = options.indexOf(value);
-
-    return _buildAnimatedCard(
-      child: Container(
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: color.withAlpha((255 * 0.3).toInt()),
-            width: 1,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Icon(icon, color: color, size: 16),
-                const SizedBox(width: 4),
-                Text(
-                  label,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const Spacer(),
-                Text(
-                  value,
-                  style: TextStyle(
-                    color: color,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                Text(
-                  " $unit",
-                  style: const TextStyle(color: Colors.grey, fontSize: 10),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            SliderTheme(
-              data: SliderThemeData(
-                trackHeight: 2,
-                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 8),
-                overlayShape: const RoundSliderOverlayShape(overlayRadius: 12),
-                activeTrackColor: color,
-                inactiveTrackColor: color.withAlpha((255 * 0.2).toInt()),
-                thumbColor: color,
-                overlayColor: color.withAlpha((255 * 0.2).toInt()),
-              ),
-              child: Slider(
-                value: currentIndex.toDouble(),
-                min: 0,
-                max: (options.length - 1).toDouble(),
-                divisions: options.length - 1,
-                onChanged: (v) => onChanged(options[v.round()]),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildActionButton({
-    required String label,
-    required IconData icon,
-    required bool isPrimary,
-    required VoidCallback onPressed,
-  }) {
-    if (isPrimary) {
-      return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(30),
-          gradient: const LinearGradient(
-            colors: [Colors.deepOrange, Colors.orange],
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.deepOrange.withAlpha((255 * 0.3).toInt()),
-              blurRadius: 10,
-              spreadRadius: 0,
-            ),
-          ],
-        ),
-        child: ElevatedButton.icon(
-          onPressed: onPressed,
-          icon: Icon(icon, size: 16),
-          label: Text(label),
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.transparent,
-            foregroundColor: Colors.white,
-            shadowColor: Colors.transparent,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-        ),
-      );
-    } else {
-      return OutlinedButton.icon(
-        onPressed: onPressed,
-        icon: Icon(icon, size: 16),
-        label: Text(label),
-        style: OutlinedButton.styleFrom(
-          foregroundColor: Colors.deepOrange,
-          side: BorderSide(
-            color: Colors.deepOrange.withAlpha((255 * 0.5).toInt()),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(30),
-          ),
-        ),
-      );
-    }
-  }
-
-  final List<String> _ramOptions = ['1024', '2048', '4096', '8192', '16384'];
+  final List<String> _ramOptions = ['1024', '2048', '4096', '8192', '10000'];
   final List<String> _romOptions = [
     '10240',
     '20480',
@@ -731,6 +523,6 @@ class _CreateVmScreenState extends State<CreateVmScreen>
         backgroundColor: Colors.deepOrange,
       ),
     );
-    Navigator.pop(context);
+    //Navigator.pop(context);
   }
 }
