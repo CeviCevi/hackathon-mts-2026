@@ -4,16 +4,23 @@ import 'package:flutter/material.dart';
 import 'package:hackathon_mts_2026/presentation/screen/nav/navigation_screen/widget/navigation_item.dart';
 
 class NavigationLeftBar extends StatefulWidget {
-  const NavigationLeftBar({super.key, required this.size});
-
   final Size size;
+  final Function(int) onItemTapped; // Добавили колбэк
+  final int initialIndex; // Начальный индекс (опционально)
+
+  const NavigationLeftBar({
+    super.key,
+    required this.size,
+    required this.onItemTapped,
+    this.initialIndex = 0,
+  });
 
   @override
   State<NavigationLeftBar> createState() => _NavigationLeftBarState();
 }
 
 class _NavigationLeftBarState extends State<NavigationLeftBar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   final List<String> _titles = [
     "Мои машины",
@@ -29,11 +36,17 @@ class _NavigationLeftBarState extends State<NavigationLeftBar> {
     Icons.settings,
   ];
 
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.initialIndex;
+  }
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-    // Здесь можно добавить навигацию или другие действия
+    widget.onItemTapped(index); // Передаем индекс наружу
   }
 
   @override
