@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hackathon_mts_2026/presentation/screen/nav/navigation_screen/navigation_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,12 +10,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.from(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepOrange,
+          brightness: .dark,
         ),
       ),
+      home: NavigationScreen(),
     );
   }
 }
