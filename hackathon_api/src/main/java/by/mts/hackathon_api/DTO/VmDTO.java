@@ -9,13 +9,15 @@ public class VmDTO {
 
     private String name;  
 
+    private String password;
+
     private Long idSsh;
 
-    private Double ram;
+    private Integer ram;
     
-    private Double rom;  
+    private Integer rom;  
 
-    private Double frequency;
+    private Integer cors;
 
     private String os;
 

@@ -17,6 +17,12 @@ public class VmModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(unique = false, nullable = false)
+    private String password;
+
+    @Column(unique = true, nullable = true)
+    private Integer port;  
+
     @Column(unique = true, nullable = false)
     private String name;  
 
@@ -24,18 +30,18 @@ public class VmModel {
     private Long idSsh;
     
     @Column(unique = false, nullable = false)
-    private double  ram;  
+    private Integer  ram;  
 
     @Column(unique = false, nullable = false)
-    private double  rom;  
+    private Integer  rom;  
 
     @Column(unique = false, nullable = false)
-    private double  frequency;
+    private Integer cors;
 
     @Column(unique = false, nullable = false)
     private String  os;
 
-     @Column(unique = false)
+    @Column(unique = false)
     private Integer status;
 
 
