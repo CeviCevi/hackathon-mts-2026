@@ -3,7 +3,10 @@ import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_mts_2026/data/service/auth_service.dart';
+import 'package:hackathon_mts_2026/data/service/router_service.dart';
+import 'package:hackathon_mts_2026/domain/fish/db.dart';
 import 'package:hackathon_mts_2026/domain/model/user_model.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/navigation_screen/navigation_screen.dart';
 import 'package:hackathon_mts_2026/presentation/widget/app/text_field/cosmic_text_field.dart';
 import 'package:hackathon_mts_2026/presentation/widget/test/test.dart';
 
@@ -81,9 +84,6 @@ class _RegScreenState extends State<RegScreen> {
                         onPressed: () async {
                           setState(() => isLoad = true);
 
-                          // Имитация загрузки
-                          await Future.delayed(const Duration(seconds: 2));
-
                           var data = await AuthService().registration(
                             UserModel(
                               id: 0,
@@ -95,8 +95,10 @@ class _RegScreenState extends State<RegScreen> {
                           setState(() => isLoad = false);
 
                           if (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("${data?.id ?? "Null"}")),
+                            userInSystem = data!;
+                            RouterService.routeCloseAll(
+                              context,
+                              NavigationScreen(),
                             );
                           }
                         },

@@ -1,9 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/create_vm_screen.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/navigation_screen/widget/navigation_left_bar.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/vm_screen/vm_screen.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/create_screen/create_vm_screen.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/navigation_screen/widget/navigation_left_bar.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/profile_screen/profile_screen.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/vm_screen/vm_router.dart';
 
 class NavigationScreen extends StatefulWidget {
   const NavigationScreen({super.key});
@@ -15,10 +16,9 @@ class NavigationScreen extends StatefulWidget {
 class _NavigationScreenState extends State<NavigationScreen> {
   int _selectedIndex = 0;
   final List<Widget> pages = [
-    VmScreen(),
+    VmRouter(),
     CreateVmScreen(),
-    Scaffold(),
-    Scaffold(),
+    UserProfileScreen(),
   ];
 
   void _onItemTapped(int index) {

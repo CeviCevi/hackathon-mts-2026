@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/animated_card.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/create_screen/widget/animated_card.dart';
 
 class ResourceSlider extends StatelessWidget {
   const ResourceSlider({

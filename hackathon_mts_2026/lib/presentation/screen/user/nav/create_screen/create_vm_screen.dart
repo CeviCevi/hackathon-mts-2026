@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/animated_card.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/input_label.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/resource_slider.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/create_screen/widget/selection_title.dart';
+import 'package:hackathon_mts_2026/domain/model/vm_model.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/create_screen/widget/animated_card.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/create_screen/widget/input_label.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/create_screen/widget/popup.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/create_screen/widget/resource_slider.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/create_screen/widget/selection_title.dart';
 import 'package:hackathon_mts_2026/presentation/widget/app/text_field/cosmic_text_field.dart';
 
 class CreateVmScreen extends StatefulWidget {
@@ -21,7 +23,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
 
   String _selectedOs = 'Ubuntu 22.04';
   String _selectedRam = '4096';
-  String _selectedRom = '20480';
+  String _selectedRom = '20';
   String _selectedCors = '2';
   String _selectedPreset = 'СТАНДАРТ'; // По умолчанию выбран стандарт
 
@@ -37,35 +39,35 @@ class _CreateVmScreenState extends State<CreateVmScreen>
     {
       'name': 'МИКРО',
       'ram': '1024',
-      'rom': '10240',
+      'rom': '10',
       'cors': '1',
       'icon': Icons.lens,
     },
     {
       'name': 'СТАНДАРТ',
       'ram': '4096',
-      'rom': '20480',
+      'rom': '20',
       'cors': '2',
       'icon': Icons.lens,
     },
     {
       'name': 'ПРО',
       'ram': '8192',
-      'rom': '40960',
+      'rom': '40',
       'cors': '4',
       'icon': Icons.lens,
     },
     {
       'name': 'МЕГА',
       'ram': '10000',
-      'rom': '81920',
+      'rom': '80',
       'cors': '8',
       'icon': Icons.lens,
     },
     {
       'name': 'КАСТОМ',
       'ram': '4096', // Начальные значения
-      'rom': '20480',
+      'rom': '20',
       'cors': '2',
       'icon': Icons.tune,
       'isCustom': true,
@@ -282,7 +284,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
                         options: _romOptions,
                         icon: Icons.storage,
                         color: Colors.green,
-                        unit: "MB",
+                        unit: "GB",
                         onChanged: (v) {
                           setState(() {
                             _selectedRom = v;
@@ -503,26 +505,42 @@ class _CreateVmScreenState extends State<CreateVmScreen>
   }
 
   final List<String> _ramOptions = ['1024', '2048', '4096', '8192', '10000'];
-  final List<String> _romOptions = [
-    '10240',
-    '20480',
-    '40960',
-    '81920',
-    '163840',
-  ];
+  final List<String> _romOptions = ['10', '20', '40', '80', '160'];
   final List<String> _corsOptions = ['1', '2', '4', '8', '16'];
 
   void _createVm() {
     if (_nameController.text.isEmpty) {
       _generateDefaultName();
     }
-    // Логика создания
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("ВМ '${_nameController.text}' создана!"),
-        backgroundColor: Colors.deepOrange,
+    showCosmicDialog(
+      context: context,
+      vm: VmModel(
+        id: 0,
+        name: _nameController.text,
+        idSsh: 0,
+        ram: int.parse(_selectedRam),
+        rom: int.parse(_selectedRom),
+        cors: int.parse(_selectedCors),
+        password: _passwordController.text,
+        status: 0,
+        os: _selectedOs,
       ),
+      title: "СОЗДАНИЕ ВМ",
+      message:
+          "Вы уверены, что хотите создать виртуальную машину\n'${_nameController.text}'?",
+      buttonText: "СОЗДАТЬ",
+      onButtonPressed: () {
+        // Ваш код создания ВМ
+        if (_nameController.text.isEmpty) {
+          _generateDefaultName();
+        }
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text("ВМ '${_nameController.text}' создана!"),
+            backgroundColor: Colors.deepOrange,
+          ),
+        );
+      },
     );
-    //Navigator.pop(context);
   }
 }

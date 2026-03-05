@@ -1,3 +1,3 @@
 class PathVending {
-  static String apiPath = "https://t7lvb7zl-8080.euw.devtunnels.ms/";
+  static String apiPath = "http://192.168.0.101:8080/";
 }

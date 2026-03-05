@@ -18,7 +18,7 @@ class VmItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap ?? () => _navigateToDetail(context),
+      onTap: onTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         curve: Curves.easeInOut,
@@ -210,7 +210,7 @@ class VmItem extends StatelessWidget {
           children: [
             _buildSpecChip(
               icon: Icons.memory,
-              value: "${vm.ram} GB",
+              value: "${vm.ram} MB",
               color: Colors.purpleAccent,
             ),
             const SizedBox(width: 8),
@@ -338,7 +338,6 @@ class VmItem extends StatelessWidget {
   }
 
   // Навигация на детальный экран
-  void _navigateToDetail(BuildContext context) {}
 
   String _getStatusText() {
     switch (vm.status) {

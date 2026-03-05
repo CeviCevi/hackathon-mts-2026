@@ -1,7 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:hackathon_mts_2026/presentation/screen/nav/navigation_screen/widget/navigation_item.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/navigation_screen/widget/navigation_item.dart';
 
 class NavigationLeftBar extends StatefulWidget {
   final Size size;
@@ -22,17 +22,11 @@ class NavigationLeftBar extends StatefulWidget {
 class _NavigationLeftBarState extends State<NavigationLeftBar> {
   late int _selectedIndex;
 
-  final List<String> _titles = [
-    "Мои машины",
-    "Создать машину",
-    "История",
-    "Настройки",
-  ];
+  final List<String> _titles = ["Мои машины", "Создать машину", "Настройки"];
 
   final List<IconData> _icons = const [
     Icons.computer_rounded,
     Icons.add_circle_outline,
-    Icons.history,
     Icons.settings,
   ];
 

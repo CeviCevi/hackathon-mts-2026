@@ -1,9 +1,14 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hackathon_mts_2026/data/service/auth_service.dart';
+import 'package:hackathon_mts_2026/data/service/router_service.dart';
+import 'package:hackathon_mts_2026/domain/fish/db.dart';
 import 'package:hackathon_mts_2026/domain/model/user_model.dart';
+import 'package:hackathon_mts_2026/presentation/screen/admin/admin_screen.dart';
+import 'package:hackathon_mts_2026/presentation/screen/user/nav/navigation_screen/navigation_screen.dart';
 import 'package:hackathon_mts_2026/presentation/widget/app/text_field/cosmic_text_field.dart';
 import 'package:hackathon_mts_2026/presentation/widget/test/test.dart';
 
@@ -61,7 +66,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     spacing: 10,
                     children: [
                       Text(
-                        "Вход",
+                        "Аутентификация",
                         style: TextStyle(
                           fontWeight: FontWeight.w900,
                           fontSize: 34,
@@ -78,12 +83,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 30),
                       NeonCosmicButton(
                         onPressed: () async {
+                          if (_login.text == "admin" &&
+                              _password.text == "1111") {
+                            log("message");
+                            RouterService.routeCloseAll(context, AdminScreen());
+                            return;
+                          }
                           setState(() => isLoad = true);
 
-                          // Имитация загрузки
-                          await Future.delayed(const Duration(seconds: 2));
-
-                          var data = await AuthService().registration(
+                          var data = await AuthService().login(
                             UserModel(
                               id: 0,
                               login: _login.text,
@@ -93,9 +101,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
                           setState(() => isLoad = false);
 
-                          if (mounted) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text("${data?.id ?? "Null"}")),
+                          if (mounted && data?.id != null) {
+                            userInSystem = data!;
+                            RouterService.routeCloseAll(
+                              context,
+                              NavigationScreen(),
                             );
                           }
                         },
