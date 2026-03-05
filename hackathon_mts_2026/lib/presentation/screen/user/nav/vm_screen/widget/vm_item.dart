@@ -341,9 +341,11 @@ class VmItem extends StatelessWidget {
 
   String _getStatusText() {
     switch (vm.status) {
-      case 1:
+      case 0:
+        return "В модерации";
+      case 201:
         return "Активна";
-      case 2:
+      case 202:
         return "Остановлена";
       case 3:
         return "Запуск";
@@ -354,10 +356,12 @@ class VmItem extends StatelessWidget {
 
   Color _getStatusColor() {
     switch (vm.status) {
-      case 1:
+      case 0:
+        return Colors.orange;
+      case 201:
         return Colors.green;
-      case 2:
-        return Colors.red;
+      case 202:
+        return Colors.grey;
       case 3:
         return Colors.orange;
       default:

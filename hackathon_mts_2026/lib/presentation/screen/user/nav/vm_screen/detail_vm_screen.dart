@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hackathon_mts_2026/data/service/vm_service.dart';
 import 'package:hackathon_mts_2026/domain/model/vm_model.dart';
 
 class VmDetailScreen extends StatefulWidget {
@@ -48,23 +49,17 @@ class _VmDetailScreenState extends State<VmDetailScreen>
     );
   }
 
-  void _toggleVmPower() {
-    if (vm.status == 0) return; // Нельзя управлять на модерации
+  void _toggleVmPower() async {
+    final VmService vmService = VmService();
+    if (vm.status == 0) return;
 
-    setState(() {
-      _isVmActive = !_isVmActive;
-    });
+    _isVmActive = !_isVmActive;
+    var vmStatus = _isVmActive
+        ? await vmService.startVm(widget.vm.id)
+        : await vmService.stobVm(widget.vm.id);
+    if (vmStatus = false) return;
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(
-          _isVmActive
-              ? "ВМ '${vm.name}' запускается..."
-              : "ВМ '${vm.name}' останавливается...",
-        ),
-        backgroundColor: Colors.deepOrange,
-      ),
-    );
+    setState(() {});
   }
 
   // Проверка доступности действий
@@ -273,7 +268,8 @@ class _VmDetailScreenState extends State<VmDetailScreen>
           const SizedBox(height: 12),
 
           // SSH ключ (если есть) - всегда доступен для просмотра
-          if (vm.idSsh != 0) _buildSshCard(),
+          //TODO
+          //if (vm.idSsh != 0) _buildSshCard(),
         ],
       ),
     );

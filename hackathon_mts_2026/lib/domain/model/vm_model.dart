@@ -2,7 +2,6 @@ class VmModel {
   final int id;
   final String name;
   final String password;
-  final int idSsh;
   final int ram;
   final int rom;
   final int cors;
@@ -12,7 +11,6 @@ class VmModel {
   VmModel({
     required this.id,
     required this.name,
-    required this.idSsh,
     required this.ram,
     required this.rom,
     required this.cors,
@@ -25,7 +23,6 @@ class VmModel {
     return VmModel(
       id: json['id'] as int,
       name: json['name'] as String,
-      idSsh: json['idSsh'] as int,
       ram: json['ram'] as int,
       rom: json['rom'] as int,
       cors: json['cors'] as int,
@@ -39,7 +36,6 @@ class VmModel {
     return {
       'id': id,
       'name': name,
-      'idSsh': idSsh,
       'ram': ram,
       'rom': rom,
       'cors': cors,

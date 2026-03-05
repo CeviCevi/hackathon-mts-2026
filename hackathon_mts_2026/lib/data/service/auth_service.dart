@@ -58,4 +58,34 @@ class AuthService {
       return null;
     }
   }
+
+  Future<List<UserModel>> getAllUsers() async {
+    try {
+      final Response response = await dio.get("api/user/read");
+
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response.data is List) {
+          return (response.data as List)
+              .map((json) => UserModel.fromJson(json))
+              .toList();
+        } else {
+          log('Response data is not a list');
+          return [];
+        }
+      } else {
+        log('Vm create failed with status: ${response.statusCode}');
+        return [];
+      }
+    } on DioException catch (e) {
+      log('Dio error: ${e.message}');
+      if (e.response != null) {
+        log('Response data: ${e.response?.data}');
+        log('Response status: ${e.response?.statusCode}');
+      }
+      return [];
+    } catch (e) {
+      log('Unexpected error: $e');
+      return [];
+    }
+  }
 }

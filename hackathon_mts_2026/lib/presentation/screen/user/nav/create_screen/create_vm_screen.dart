@@ -25,7 +25,7 @@ class _CreateVmScreenState extends State<CreateVmScreen>
   String _selectedRam = '4096';
   String _selectedRom = '20';
   String _selectedCors = '2';
-  String _selectedPreset = 'СТАНДАРТ'; // По умолчанию выбран стандарт
+  String _selectedPreset = 'STANDART'; // По умолчанию выбран стандарт
 
   final List<Map<String, dynamic>> _osOptions = [
     {'name': 'Ubuntu 22.04', 'icon': Icons.terminal, 'color': Colors.orange},
@@ -37,35 +37,35 @@ class _CreateVmScreenState extends State<CreateVmScreen>
 
   final List<Map<String, dynamic>> _presets = [
     {
-      'name': 'МИКРО',
+      'name': 'MICRO',
       'ram': '1024',
       'rom': '10',
       'cors': '1',
       'icon': Icons.lens,
     },
     {
-      'name': 'СТАНДАРТ',
+      'name': 'STANDART',
       'ram': '4096',
       'rom': '20',
       'cors': '2',
       'icon': Icons.lens,
     },
     {
-      'name': 'ПРО',
+      'name': 'PRO',
       'ram': '8192',
       'rom': '40',
       'cors': '4',
       'icon': Icons.lens,
     },
     {
-      'name': 'МЕГА',
+      'name': 'MEGA',
       'ram': '10000',
       'rom': '80',
       'cors': '8',
       'icon': Icons.lens,
     },
     {
-      'name': 'КАСТОМ',
+      'name': 'CUSTOM',
       'ram': '4096', // Начальные значения
       'rom': '20',
       'cors': '2',
@@ -517,7 +517,6 @@ class _CreateVmScreenState extends State<CreateVmScreen>
       vm: VmModel(
         id: 0,
         name: _nameController.text,
-        idSsh: 0,
         ram: int.parse(_selectedRam),
         rom: int.parse(_selectedRom),
         cors: int.parse(_selectedCors),

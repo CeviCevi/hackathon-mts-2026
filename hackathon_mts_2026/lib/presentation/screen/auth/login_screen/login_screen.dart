@@ -7,7 +7,7 @@ import 'package:hackathon_mts_2026/data/service/auth_service.dart';
 import 'package:hackathon_mts_2026/data/service/router_service.dart';
 import 'package:hackathon_mts_2026/domain/fish/db.dart';
 import 'package:hackathon_mts_2026/domain/model/user_model.dart';
-import 'package:hackathon_mts_2026/presentation/screen/admin/admin_screen.dart';
+import 'package:hackathon_mts_2026/presentation/screen/admin/admin_navigation_screen.dart';
 import 'package:hackathon_mts_2026/presentation/screen/user/nav/navigation_screen/navigation_screen.dart';
 import 'package:hackathon_mts_2026/presentation/widget/app/text_field/cosmic_text_field.dart';
 import 'package:hackathon_mts_2026/presentation/widget/test/test.dart';
@@ -86,7 +86,10 @@ class _LoginScreenState extends State<LoginScreen> {
                           if (_login.text == "admin" &&
                               _password.text == "1111") {
                             log("message");
-                            RouterService.routeCloseAll(context, AdminScreen());
+                            RouterService.routeCloseAll(
+                              context,
+                              AdminNavigationScreen(),
+                            );
                             return;
                           }
                           setState(() => isLoad = true);

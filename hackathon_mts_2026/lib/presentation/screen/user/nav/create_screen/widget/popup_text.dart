@@ -117,15 +117,6 @@ class VmConfirmationWidget extends StatelessWidget {
                   color: Colors.blue,
                 ),
               ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: _buildInfoItem(
-                  icon: Icons.terminal,
-                  label: "ОС",
-                  value: vm.os,
-                  color: Colors.orange,
-                ),
-              ),
             ],
           ),
 
@@ -168,10 +159,10 @@ class VmConfirmationWidget extends StatelessWidget {
               const SizedBox(width: 12),
               Expanded(
                 child: _buildInfoItem(
-                  icon: Icons.vpn_key,
-                  label: "SSH ключ",
-                  value: vm.idSsh == 0 ? "Не привязан" : "ID: ${vm.idSsh}",
-                  color: Colors.purple,
+                  icon: Icons.terminal,
+                  label: "ОС",
+                  value: vm.os,
+                  color: Colors.orange,
                 ),
               ),
             ],

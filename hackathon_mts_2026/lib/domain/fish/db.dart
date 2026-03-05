@@ -5,7 +5,6 @@ final List<VmModel> vmList = [
   VmModel(
     id: 0,
     name: "Fish Mashine",
-    idSsh: 123,
     ram: 100000,
     rom: 10,
     cors: 12,

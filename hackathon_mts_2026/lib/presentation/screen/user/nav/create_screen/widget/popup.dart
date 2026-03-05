@@ -14,7 +14,7 @@ void showCosmicDialog({
   showDialog(
     context: context,
     barrierDismissible: false,
-    barrierColor: Colors.black.withAlpha((255 * 0.8).toInt()),
+    barrierColor: Colors.black.withAlpha((255 * 0.5).toInt()),
     builder: (context) => Dialog(
       backgroundColor: Colors.transparent,
       elevation: 0,
